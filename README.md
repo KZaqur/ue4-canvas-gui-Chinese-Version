@@ -1,6 +1,6 @@
 # ue4-canvas-gui-Chinese-Version
 
-### 原仓库：https://github.com/MaddyOff/ue4-canvas-gui 做了修改使其能显示中文
+### 原仓库：https://github.com/MaddyOff/ue4-canvas-gui 此版本使其能显示中文而不乱码
 
 ## 效果图:
 
@@ -10,9 +10,9 @@
 
 ## 食用方法:
 
-包含 ZeroGUI.h  `#include "ZeroGUI.h"`
+在你代码中包含 **ZeroGUI.h**
 
-找到你游戏的**UCanvas**后，在你的代码中最开始添加
+找到你游戏的 **UCanvas** 后，在你的代码中最开始添加
 
 ```c++
 #ifdef __cpp_char8_t
@@ -22,7 +22,7 @@
 #endif
 ```
 
-代码示例如下
+完整代码示例如下
 
 
 ```c++
@@ -30,14 +30,7 @@ auto PostRender(void* View, SDK::UCanvas* Canvas) -> void {
 
     auto Engine = SDK::UEngine::GetEngine();
     ZeroGUI::SetupCanvas(Canvas);
-
-
     Tick();
-
-    // SDK::FVector2D Fv2d{ 300.0f, 300.0f };
-    // SDK::FVector2D Fv2d1{ 1, 1 };
-    // Canvas->K2_DrawText(Engine->MediumFont, L"这是UE引擎绘制中文文字 Auseper", Fv2d, Fv2d1, SDK::FLinearColor(255, 255, 255, 1.0), 1.0f, SDK::FLinearColor(0.f, 0.f, 0.f, 1.0f), Fv2d1, true, true, true, SDK::FLinearColor(0.f, 0.f, 0.f, 1.0f));
-
     return oPostRender(View, Canvas);
 }
 ```
@@ -47,14 +40,7 @@ void Tick()
     ZeroGUI::Input::Handle();
 
     static bool menu_opened = true;
-    // 如果你想用 F2 切换菜单可以启用下一行
     if (GetAsyncKeyState(VK_F2) & 1) menu_opened = !menu_opened;
-
-    // 直接使用 UTF-8 字面量（文件必须保存为 UTF-8）
-    auto title = U8C(u8"Auseper菜单");
-    auto welcome = U8C(u8"欢迎使用Auseper菜单");
-    auto show_menu = U8C(u8"显示菜单");
-
     if (ZeroGUI::Window(U8C(u8"测试"), &Pos, FVector2D{ 500.0f, 400.0f }, menu_opened))
     {
         // Simple Tabs
@@ -73,11 +59,10 @@ void Tick()
         static FLinearColor test_color{ 0.0f, 0.0f, 1.0f, 1.0f };
 
         ZeroGUI::Checkbox(U8C(u8"选择框"), &text_check);
-        ZeroGUI::SliderFloat(U8C(u8"速度"), &text_slider, 0.0f, 180.0f);
+        ZeroGUI::SliderFloat(U8C(u8"滑块"), &text_slider, 0.0f, 180.0f);
         ZeroGUI::Hotkey(U8C(u8"热键"), FVector2D{ 80, 25 }, &test_hotkey);
 
         ZeroGUI::Text(U8C(u8"这是文本"));
-        ZeroGUI::Text(U8C(u8"这是文本1"), true, true);
 
         // Element with padding
         ZeroGUI::PushNextElementY(50.0f);
